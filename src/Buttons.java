@@ -3,23 +3,31 @@ import java.awt.*;
 import java.awt.event.*;
 public class Buttons extends JPanel implements ActionListener{
     JButton[][] buttons;
-    JTextArea status;
-    JPanel panel;
+    JLabel status;
+    JPanel panel, empty;
     int numButtons,n,prize,bomb1, bomb2, prizeRow, prizeColumn, bomb1Row, bomb1Column, bomb2Row, bomb2Column, clickCount;
     public Buttons(int n){
         clickCount = 0;
         panel = new JPanel();
-        status = new JTextArea("Attempt #" + clickCount);
-        panel.setPreferredSize( new Dimension(400,50));
-        panel.add(status);
-        panel.setBackground(Color.CYAN);
 
+
+
+        setLayout(new BorderLayout());
+        status = new JLabel("Attempt #" + clickCount, JLabel.CENTER);
+        status.setPreferredSize(new Dimension(400,50));
+        status.setBackground(Color.YELLOW);
+        setPreferredSize( new Dimension(400,300));
+
+        add(status, BorderLayout.NORTH);
+        setBackground(Color.CYAN);
+
+        panel.setLayout( new GridLayout(n,n));
         buttons = new JButton[n][n];
         numButtons = n*n;
         this.n = n;
-        setPreferredSize(new Dimension(400,400));
+        panel.setPreferredSize(new Dimension(400,200));
         setPrizeAndBombs();
-        add(panel);
+        add(panel, BorderLayout.CENTER);
         initButtons();
         addButtons();
         setBackground(Color.ORANGE);
@@ -72,7 +80,7 @@ public class Buttons extends JPanel implements ActionListener{
     private void addButtons(){
         for(int i = 0; i<n; i++){
             for(int j = 0; j<n; j++){
-                add(buttons[i][j]);
+                panel.add(buttons[i][j]);
             }
         }
     }

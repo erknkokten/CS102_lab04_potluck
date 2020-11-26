@@ -6,8 +6,10 @@ public class potLuck {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
         int n;
-        System.out.println("Enter a number n: ");
-        n = scan.nextInt();
+        do {
+            System.out.println("Enter a number n (bigger than 1): ");
+            n = scan.nextInt();
+        }while(n<= 1);
 
         Buttons buttons = new Buttons(n);
 

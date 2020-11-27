@@ -6,10 +6,13 @@ public class Buttons extends JPanel implements ActionListener{
     JLabel status;
     JPanel panel, empty;
     int numButtons,n,prize,bomb1, bomb2, prizeRow, prizeColumn, bomb1Row, bomb1Column, bomb2Row, bomb2Column, clickCount;
+    boolean bomb_flag;
+
+    //Constructor
     public Buttons(int n){
+        bomb_flag = false;
         clickCount = 0;
         panel = new JPanel();
-
 
 
         setLayout(new BorderLayout());
@@ -34,6 +37,10 @@ public class Buttons extends JPanel implements ActionListener{
 
 
     }
+
+    /**
+     * Sets the locations of 1 prize and 2 bombs.
+     */
     private void setPrizeAndBombs(){
         //index verecek
         prize = (int) (Math.random() * numButtons ) ;
@@ -65,6 +72,9 @@ public class Buttons extends JPanel implements ActionListener{
         System.out.println(bomb2Column);*/
     }
 
+    /**
+     * initializes the buttons in the buttons array. Also adds ActionListener to all of the buttons.
+     */
     private void initButtons(){
         int num = 0;
         for(int i = 0; i<n; i++){
@@ -77,6 +87,10 @@ public class Buttons extends JPanel implements ActionListener{
         }
 
     }
+
+    /**
+     * adds buttons to the panel
+     */
     private void addButtons(){
         for(int i = 0; i<n; i++){
             for(int j = 0; j<n; j++){
@@ -85,8 +99,14 @@ public class Buttons extends JPanel implements ActionListener{
         }
     }
 
+    /**
+     * when buttons are clicked, this method is called.
+     * Increases the number of attempts until the user clicks to a bomb or prize.
+     * @param event
+     */
     public void actionPerformed(ActionEvent event){
         JButton clicked = (JButton) event.getSource();
+        //If you want to learn where the prize is and bombs are, use this if sequence
         if(clicked.equals(buttons[prizeRow][prizeColumn])){
             status.setText("You got it in " + clickCount + " attempts!");
 
@@ -103,6 +123,27 @@ public class Buttons extends JPanel implements ActionListener{
             status.setText("Attempt #" + clickCount);
 
         }
+
+        //If you really want to play the game, uncomment the if sequence below and comment the one above.
+        /*
+        if(clicked.equals(buttons[prizeRow][prizeColumn]) && !bomb_flag){
+            status.setText("You got it in " + clickCount + " attempts!");
+
+        }
+        else if(clicked.equals(buttons[bomb1Row][bomb1Column]) && !bomb_flag){
+            bomb_flag = true;
+            status.setText("Sorry! You are blown up at attempt " + clickCount + "!");
+        }
+        else if(clicked.equals(buttons[bomb2Row][bomb2Column]) && !bomb_flag){
+            bomb_flag = true;
+            status.setText("Sorry! You are blown up at attempt " + clickCount + "!");
+        }
+        else if (!bomb_flag){
+            clickCount++;
+            status.setText("Attempt #" + clickCount);
+
+        }
+         */
     }
 
 
